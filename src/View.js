@@ -1,7 +1,12 @@
 export default class View {
     #component
 
-    constructor() {}
+    constructor() {
+        this
+    }
+
+    render(data) {
+    }
 
     get component() {
         return this.#component;

@@ -1,5 +1,4 @@
 import { CalendarEventStore } from "./CalendarEventStore.js";
-import CalendarEventView from "./CalendarEventView.js";
 import State from "./State.js";
 
 export default class DayState extends State {
@@ -9,22 +8,17 @@ export default class DayState extends State {
     }
     
     next() {
-        const prev = this.focusedDate;
-        this.focusedDate = prev.setDate(prev.getDate() + 1);
+        const past = this.focusedDate;
+        past.setDate(past.getDate() + 1);
     }
 
     previous() {
-        const prev = this.focusedDate;
-        this.focusedDate = prev.setDate(prev.getDate() + 1);
+        const past = this.focusedDate;
+        past.setDate(past.getDate() + 1);
     }
 
-    generateView() {
+    generateData() {
         const params = this.focusedDate.toLocaleDateString('zh-CN').split('/');
-        params[1]--;
-        const map = CalendarEventStore.getDay(...params);
-        for (const e of map.heap) {
-            const v = new CalendarEventView(e);
-            document.querySelector('body').append(v.component);
-        }
+        return CalendarEventStore.getDay(...params);
     }
 }

@@ -26,9 +26,9 @@ export const CalendarEventStore = {
     },
 
     addYear(yearNo) {
-        const monthStore = Array(12);
-        for (let i = 0; i < 12; i++) {
-            monthStore[i] = Array(new Date(yearNo, i + 1, 0).getDate());
+        const monthStore = Array(13);
+        for (let i = 1; i < 13; i++) {
+            monthStore[i] = Array(new Date(yearNo, i, 0).getDate() + 1);
         }
         eventDateMap.set(yearNo, monthStore);
     },
@@ -60,3 +60,4 @@ export const CalendarEventStore = {
         return id
     }
 };
+console.log(eventDateMap);
