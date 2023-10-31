@@ -1,4 +1,4 @@
-import CalendarEventStore from "./CalendarEventStore";
+import {CalendarEventStore} from "./CalendarEventStore.js";
 
 export default class CalendarEvent {
     #id
@@ -7,10 +7,18 @@ export default class CalendarEvent {
     #name
 
     constructor({date, time, name}) {
-        this.#id = CalendarEventStore.addEvent(this);
         this.#date = date;
         this.#time = time;
         this.#name = name;
+        this.#id = CalendarEventStore.addEvent(this);
+    }
+
+    get date() {
+        return this.#date;
+    }
+
+    get hash() {
+        return this.#date + '.' + this.#id;
     }
 
     get name() {

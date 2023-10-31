@@ -1,6 +1,6 @@
-import CalendarEventStore from "./CalendarEventStore.js";
+import {CalendarEventStore} from "./CalendarEventStore.js";
 
-const calendarEventController = {
+export const calendarEventController = {
     selected: new Set(),
 
     toggleEvent(hash) {
@@ -10,5 +10,3 @@ const calendarEventController = {
         else this.selected.add(event);
     }
 };
-
-export default calendarEventController;
