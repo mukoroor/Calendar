@@ -2,11 +2,16 @@
 const eventDateMap = new Map();
 
 
-class dayMap extends Map {
+class dayHeapSet extends Map {
     #id = 0;
-
+    heap = []
     constructor() {
         super();
+    }
+
+    add(id, event) {
+        super.set(id, event);
+        this.heap.push(event);
     }
 
     get id() {
@@ -43,15 +48,15 @@ export const CalendarEventStore = {
         return day.get(+id);
     },
     addEvent(e) {
-        const [year, month, day] = e.date.split('.');
+        const [year, month, day] = e.date.split('-');
         if (!eventDateMap.has(year)) CalendarEventStore.addYear(year);
 
         const monthStore = eventDateMap.get(year)[+month];
-        if (!monthStore[+day]) monthStore[+day] = new dayMap();
+        if (!monthStore[+day]) monthStore[+day] = new dayHeapSet();
 
         const dayStore = monthStore[+day];
         const id = dayStore.id;
-        dayStore.set(id, e);
+        dayStore.add(id, e);
         return id
     }
 };

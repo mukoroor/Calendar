@@ -18,11 +18,14 @@ export default class CalendarEvent {
     }
 
     get hash() {
-        return this.#date + '.' + this.#id;
+        return this.#date + '-' + this.#id;
     }
 
     get name() {
         return this.#name;
     }
 
+    static compare(a, b) {
+        return a.name < b.name;
+    }
 }

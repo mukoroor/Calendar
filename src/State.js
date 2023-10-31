@@ -1,7 +1,27 @@
-import CalendarEvent from "./CalendarEvent.js";
-import CalendarEventView from "./CalendarEventView.js";
+export default class State {
+    #focusedDate
 
-const event = new CalendarEvent({date: "2023.09.30", time: "11:00", name: "test"});
-const view = new CalendarEventView(event);
+    constructor(focusedDate) {
+        this.#focusedDate = focusedDate;
+    }
 
-document.querySelector("body").append(view.component)
+    next() {
+        throw new Error("must implement");
+    }
+
+    previous() {
+        throw new Error("must implement");
+    }
+
+    generateView() {
+        throw new Error("must implement");
+    }
+
+    get focusedDate() {
+        return this.#focusedDate;
+    }
+    
+    set focusedDate(newDate) {
+        this.#focusedDate = newDate;
+    }
+}
