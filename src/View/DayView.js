@@ -15,6 +15,6 @@ export default class DayView extends View {
             out.push(cv.component);
         }
         this.component.replaceChildren(...out);
-        document.querySelector('body').append(this.component);
+        document.querySelector('body').replaceChild(this.component, document.querySelector('body').lastElementChild);
     }
 }

@@ -29,8 +29,23 @@ for (let month = 9; month <= 11; month++) {
     }
 }
 
-viewStateController.updateState(1);
 
-setTimeout(() => {
-    viewStateController.next();
-}, 5000);
+[1, 2, 3].forEach(e => {
+    let b = document.createElement('button');
+    b.textContent = e;
+    document.querySelector('body').append(b);
+    b.onclick = () => {viewStateController.updateState(e)};
+})
+
+const x = ['next', 'previous'];
+x.forEach(l => {
+    let b = document.createElement('button');
+    b.textContent = l;
+    document.querySelector('body').append(b);
+    b.onclick = () => {
+        if (l == 'next') viewStateController.next();
+        else viewStateController.previous();
+    }
+})
+
+

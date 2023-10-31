@@ -61,6 +61,7 @@ export const viewStateController = {
 
     previous() {
         this.state.previous();
+        console.log(this.state.focusedDate);
         this.updateData();
     }
 }

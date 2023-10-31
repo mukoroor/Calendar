@@ -18,6 +18,6 @@ export default class MonthView extends View {
             }
         }
         this.component.replaceChildren(...out);
-        document.querySelector('body').append(this.component);
+        document.querySelector('body').replaceChild(this.component, document.querySelector('body').lastElementChild);
     }
 }

@@ -14,7 +14,7 @@ export default class DayState extends State {
 
     previous() {
         const past = this.focusedDate;
-        past.setDate(past.getDate() + 1);
+        past.setDate(past.getDate() - 1);
     }
 
     generateData() {
