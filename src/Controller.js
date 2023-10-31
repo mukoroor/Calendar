@@ -1,11 +1,11 @@
 import {CalendarEventStore} from "./CalendarEventStore.js";
-import YearState from "./YearState.js";
-import MonthState from "./MonthState.js";
-import MonthView from "./MonthView.js";
-import WeekState from "./WeekState.js";
-import WeekView from "./WeekView.js";
-import DayState from "./DayState.js";
-import DayView from "./DayView.js";
+import YearState from "./State/YearState.js";
+import MonthState from "./State/MonthState.js";
+import MonthView from "./View/MonthView.js";
+import WeekState from "./State/WeekState.js";
+import WeekView from "./View/WeekView.js";
+import DayState from "./State/DayState.js";
+import DayView from "./View/DayView.js";
 
 export const calendarEventController = {
     selected: new Set(),

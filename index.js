@@ -1,6 +1,6 @@
 import CalendarEvent from "./src/CalendarEvent.js";
 import { CalendarEventStore } from "./src/CalendarEventStore.js";
-import CalendarEventView from "./src/CalendarEventView.js";
+import CalendarEventView from "./src/View/CalendarEventView.js";
 import { viewStateController } from "./src/Controller.js";
 
 function getRandomDate(year, month) {

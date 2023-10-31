@@ -1,4 +1,4 @@
-import { CalendarEventStore } from "./CalendarEventStore.js";
+import { CalendarEventStore } from "../CalendarEventStore.js";
 import State from "./State.js";
 
 export default class DayState extends State {

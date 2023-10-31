@@ -1,5 +1,5 @@
 import View from "./View.js";
-import {calendarEventController as CEC} from "./Controller.js";
+import {calendarEventController as CEC} from "../Controller.js";
 
 export default class CalendarEventView extends View {
     #eventHash
