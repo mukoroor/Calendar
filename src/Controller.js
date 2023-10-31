@@ -1,5 +1,6 @@
 import {CalendarEventStore} from "./CalendarEventStore.js";
 import YearState from "./State/YearState.js";
+import YearView from "./View/YearView.js";
 import MonthState from "./State/MonthState.js";
 import MonthView from "./View/MonthView.js";
 import WeekState from "./State/WeekState.js";
@@ -18,15 +19,18 @@ export const calendarEventController = {
     }
 }
 
+// const
+
 export const viewStateController = {
     state: new DayState(new Date()),
     view: new DayView(),
+    stateMutator: undefined,
     
     updateState(id) {
         if (id === 0) {
             if (!(this.state instanceof YearState)) {
                 this.state = new YearState(this.state.focusedDate);
-                // this.view = new YearView();
+                this.view = new YearView();
             } 
         } else if (id === 1) {
             if (!(this.state instanceof MonthState)) {
@@ -50,8 +54,8 @@ export const viewStateController = {
     },
 
     updateData() {
-        const data = this.state.generateData();
-        this.view.render(data);
+        const vals = this.state.generateData();
+        this.view.render(vals.data, vals.start);
     },
 
     next() {

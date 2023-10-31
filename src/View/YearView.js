@@ -1,10 +1,7 @@
-import DayViewStrategy from "../Strategy/DayViewStrategy.js";
 import CalendarEventView from "./CalendarEventView.js";
 import StateView from "./StateView.js";
 
-export default class DayView extends StateView {
-    static viewStrategy = new DayViewStrategy();
-
+export default class YearView extends StateView {
     constructor() {
         super();
     }
@@ -13,12 +10,17 @@ export default class DayView extends StateView {
         if (!data) return;
         let out = [];
         this.component = document.createElement('main');
-        for (const entry of data.heap) {
-            const cv = new CalendarEventView(DayView.viewStrategy);
-            cv.render(entry);
-            out.push(cv.component);
+        this.component.textContent = start[0];
+        for (const month of data) {
+            for (const day of month) {
+                if (!day) continue;
+                for (const entry of day.heap) {
+                    const cv = new CalendarEventView();
+                    cv.render(entry);
+                    out.push(cv.component);
+                }
+            }
         }
-        this.component.classList.add('day');
         this.component.replaceChildren(...out);
         document.querySelector('body').replaceChild(this.component, document.querySelector('body').lastElementChild);
     }

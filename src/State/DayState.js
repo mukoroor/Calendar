@@ -19,6 +19,6 @@ export default class DayState extends State {
 
     generateData() {
         const params = this.focusedDate.toLocaleDateString('zh-CN').split('/');
-        return CalendarEventStore.getDay(...params);
+        return {data: CalendarEventStore.getDay(...params), start: params};
     }
 }

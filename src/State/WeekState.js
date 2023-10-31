@@ -22,11 +22,13 @@ export default class WeekState extends State {
         const week = [];
         let copy = new Date(this.focusedDate);
         copy.setDate(copy.getDate() - this.focusedDate.getDay());
+        const start  = [];
         for (let i = 0; i < 7; i++) {
             const params = copy.toLocaleDateString('zh-CN').split('/');
             week.push(CalendarEventStore.getDay(...params));
+            start.push(params);
             copy.setDate(copy.getDate() + 1);
         }
-        return week;
+        return {data: week, start};
     }
 }

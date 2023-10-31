@@ -26,21 +26,21 @@ export const CalendarEventStore = {
     },
 
     addYear(yearNo) {
-        const monthStore = Array(13);
-        for (let i = 1; i < 13; i++) {
-            monthStore[i] = Array(new Date(yearNo, i, 0).getDate() + 1);
+        const monthStore = Array(12);
+        for (let i = 0; i < monthStore.length; i++) {
+            monthStore[i] = Array(new Date(yearNo, i, 0).getDate());
         }
         eventDateMap.set(yearNo, monthStore);
     },
     getMonth(yearNo, monthNo) {
         const year = CalendarEventStore.getYear(yearNo);
-        if (!year || !year[+monthNo]) return null;
-        return year[+monthNo];
+        if (!year || !year[+monthNo - 1]) return null;
+        return year[+monthNo - 1];
     },
     getDay(yearNo, monthNo, dayNo) {
         const month = CalendarEventStore.getMonth(yearNo, monthNo);
-        if (!month || !month[+dayNo]) return null;
-        return month[+dayNo];
+        if (!month || !month[+dayNo - 1]) return null;
+        return month[+dayNo - 1];
     },
     getEvent(yearNo, monthNo, dayNo, id) {
         const day = CalendarEventStore.getDay(yearNo, monthNo, dayNo);
@@ -51,10 +51,10 @@ export const CalendarEventStore = {
         const [year, month, day] = e.date.split('-');
         if (!eventDateMap.has(year)) CalendarEventStore.addYear(year);
 
-        const monthStore = eventDateMap.get(year)[+month];
-        if (!monthStore[+day]) monthStore[+day] = new dayHeapSet();
+        const monthStore = eventDateMap.get(year)[+month - 1];
+        if (!monthStore[+day - 1]) monthStore[+day - 1] = new dayHeapSet();
 
-        const dayStore = monthStore[+day];
+        const dayStore = monthStore[+day - 1];
         const id = dayStore.id;
         dayStore.add(id, e);
         return id

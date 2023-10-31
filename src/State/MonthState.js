@@ -1,5 +1,5 @@
 import State from "./State.js";
-import { CalendarEventStore } from "./CalendarEventStore.js";
+import { CalendarEventStore } from "../CalendarEventStore.js";
 
 export default class MonthState extends State {
     constructor(focusedDate) {
@@ -20,6 +20,6 @@ export default class MonthState extends State {
 
     generateData() {
         const params = this.focusedDate.toLocaleDateString('zh-CN').split('/');
-        return CalendarEventStore.getMonth(...params);
+        return {data: CalendarEventStore.getMonth(...params), start: params};
     }
 }

@@ -3,24 +3,22 @@ import {calendarEventController as CEC} from "../Controller.js";
 
 export default class CalendarEventView extends View {
     #eventHash
+    #renderingViewStrategy
 
-    constructor() {
+    constructor(renderingViewStrategy) {
         super();
+        this.#renderingViewStrategy = renderingViewStrategy;
     }
 
     select() {
         CEC.toggleEvent(this.#eventHash);
         this.component.classList.toggle('select');
+        //custome event 
     }
 
     render(data) {
-        const div = document.createElement('div');
-        const span = document.createElement('span');
-        div.append(span);
-        div.addEventListener("click", this.select.bind(this));
-        span.textContent = data.name;
+        this.component = this.#renderingViewStrategy.render(data);
         this.#eventHash = data.hash;
-        this.component = div;
     }
 
     // singular

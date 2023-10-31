@@ -17,6 +17,10 @@ export default class CalendarEvent {
         return this.#date;
     }
 
+    get time() {
+        return this.#time;
+    }
+
     get hash() {
         return this.#date + '-' + this.#id;
     }

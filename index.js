@@ -17,20 +17,20 @@ function getRandomTime() {
 }
 
 // Generate random events for September, October, and November
-const year = 2023;
-
-for (let month = 9; month <= 11; month++) {
+let year = 2021;
+for (year; year < 2024; year++) {
+for (let month = 1; month <= 12; month++) {
     for (let i = 0; i < 100; i++) { // Generate 100 events for each month
         const date = getRandomDate(year, month);
         const time = getRandomTime();
-        const name = Math.floor(Math.random() * 300000).toString(36);
+        const name = Math.floor(Math.random() * 300000000).toString(36);
         const event = { date, time, name };
         new CalendarEvent(event);
     }
 }
+}
 
-
-[1, 2, 3].forEach(e => {
+[0, 1, 2, 3].forEach(e => {
     let b = document.createElement('button');
     b.textContent = e;
     document.querySelector('body').append(b);

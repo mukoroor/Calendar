@@ -2,7 +2,6 @@ export default class View {
     #component
 
     constructor() {
-        this
     }
 
     render(data) {
@@ -14,5 +13,6 @@ export default class View {
 
     set component(newComponent) {
         this.#component = newComponent;
+        this.component.classList.add('view');
     }
 }
