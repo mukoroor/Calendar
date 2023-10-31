@@ -21,7 +21,7 @@ export default class WeekState extends State {
     generateData() {
         const week = [];
         let copy = new Date(this.focusedDate);
-        copy.setDate(this.focusedDate.getDate() - this.focusedDate.getDay());
+        copy.setDate(copy.getDate() - this.focusedDate.getDay());
         for (let i = 0; i < 7; i++) {
             const params = copy.toLocaleDateString('zh-CN').split('/');
             week.push(CalendarEventStore.getDay(...params));

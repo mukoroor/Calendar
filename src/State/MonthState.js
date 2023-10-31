@@ -1,5 +1,5 @@
 import State from "./State.js";
-import { CalendarEventStore } from "../CalendarEventStore.js";
+import { CalendarEventStore } from "./CalendarEventStore.js";
 
 export default class MonthState extends State {
     constructor(focusedDate) {

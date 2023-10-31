@@ -21,7 +21,7 @@ class dayHeapSet extends Map {
 
 export const CalendarEventStore = {
     getYear(yearNo) {
-        if (!eventDateMap.has(yearNo)) throw new Error("No events");
+        if (!eventDateMap.has(yearNo)) return null;
         return eventDateMap.get(yearNo);
     },
 
@@ -34,17 +34,17 @@ export const CalendarEventStore = {
     },
     getMonth(yearNo, monthNo) {
         const year = CalendarEventStore.getYear(yearNo);
-        if (!year[+monthNo]) throw new Error("No events");
+        if (!year || !year[+monthNo]) return null;
         return year[+monthNo];
     },
     getDay(yearNo, monthNo, dayNo) {
         const month = CalendarEventStore.getMonth(yearNo, monthNo);
-        if (!month[+dayNo]) throw new Error("No events");
+        if (!month || !month[+dayNo]) return null;
         return month[+dayNo];
     },
     getEvent(yearNo, monthNo, dayNo, id) {
         const day = CalendarEventStore.getDay(yearNo, monthNo, dayNo);
-        if (!day.has(+id)) throw new Error("No events");
+        if (!day || !day.has(+id)) return null;
         return day.get(+id);
     },
     addEvent(e) {
