@@ -22,6 +22,7 @@ export default class YearView extends StateView {
             }
         }
         this.component.replaceChildren(...out);
+        super.render();
         document.querySelector('body').replaceChild(this.component, document.querySelector('body').lastElementChild);
     }
 }

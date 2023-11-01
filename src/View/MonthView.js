@@ -34,6 +34,7 @@ export default class MonthView extends StateView {
         }
         this.component.classList.add('month');
         this.component.replaceChildren(...out);
+        super.render();
         document.querySelector('body').replaceChild(this.component, document.querySelector('body').lastElementChild);
     }
 }

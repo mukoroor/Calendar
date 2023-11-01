@@ -31,6 +31,7 @@ export default class WeekView extends StateView {
         }
         this.component.classList.add('week');
         this.component.replaceChildren(...out);
+        super.render();
         document.querySelector('body').replaceChild(this.component, document.querySelector('body').lastElementChild);
     }
 }

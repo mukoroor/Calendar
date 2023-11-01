@@ -20,6 +20,7 @@ export default class DayView extends StateView {
         }
         this.component.classList.add('day');
         this.component.replaceChildren(...out);
+        super.render();
         document.querySelector('body').replaceChild(this.component, document.querySelector('body').lastElementChild);
     }
 }

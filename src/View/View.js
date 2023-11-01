@@ -13,6 +13,5 @@ export default class View {
 
     set component(newComponent) {
         this.#component = newComponent;
-        this.component.classList.add('view');
     }
 }

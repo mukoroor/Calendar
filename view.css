@@ -1,6 +1,10 @@
 .view {
     display: grid;
-    gap: max(10px, 1ch);
+    background: rgb(61, 60, 60);
+    gap: max(10px, 0.5lh);
+    border-radius: 1.25lh;
+    padding: 0.5lh;
+    width: min-content;
 }
 
 .month {
@@ -8,14 +12,38 @@
     grid-template-columns: repeat(7, 10.5lh);
     grid-auto-rows: 1fr;
 }
+
+.month h4 {
+    margin: 0;
+    font-weight: 200;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    padding-top: 0.5lh;
+    backdrop-filter: brightness(50%);
+}
+
 .month section {
     display: flex;
-    gap: 0.5lh;
+    align-content: flex-start;
+    gap: 0.25lh;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    padding-bottom: 0.5lh;
     flex-wrap: wrap;
 }
 
 .month div {
-    background: cadetblue;
+    background: rgb(71, 73, 73);
+    display: grid;
+    gap: 0.5lh;
+    grid-template-rows: min-content 1fr;
+    aspect-ratio: 1 / 1;
+    border-radius: 0.75lh;
+}
+
+.month div > * {
+    padding-left: 0.5lh;
+    padding-right: 0.5lh;
 }
 
 .week {

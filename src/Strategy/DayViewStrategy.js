@@ -9,8 +9,9 @@ export default class DayViewStrategy extends ViewStrategy {
         const div = document.createElement('div');
         const span = document.createElement('span');
         const p = document.createElement('p');
-        div.replaceChildren(span, p);
+        div.replaceChildren(p, span);
         // div.addEventListener("click", this.select.bind(this));
+        div.classList.add('stg')
         span.textContent = data.time;
         p.textContent = data.name;
         return div;

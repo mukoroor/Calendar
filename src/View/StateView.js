@@ -7,5 +7,8 @@ export default class StateView extends View {
         super();
     }
 
-    render(data, start) {}
+    render(data, start) {
+        this.component.classList.add('view');
+    }
+
 }

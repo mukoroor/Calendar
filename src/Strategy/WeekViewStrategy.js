@@ -9,6 +9,7 @@ export default class WeekViewStrategy extends ViewStrategy {
         const div = document.createElement('div');
         const span = document.createElement('span');
         div.append(span);
+        div.classList.add('stg')
         // div.addEventListener("click", this.select.bind(this));
         span.textContent = data.name;
         return div;
