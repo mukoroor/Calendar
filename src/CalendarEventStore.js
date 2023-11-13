@@ -21,14 +21,14 @@ class dayHeapSet extends Map {
 
 export const CalendarEventStore = {
     getYear(yearNo) {
-        if (!eventDateMap.has(yearNo)) return null;
+        if (!eventDateMap.has(yearNo)) CalendarEventStore.addYear(yearNo);
         return eventDateMap.get(yearNo);
     },
 
     addYear(yearNo) {
         const monthStore = Array(12);
-        for (let i = 0; i < monthStore.length; i++) {
-            monthStore[i] = Array(new Date(yearNo, i, 0).getDate());
+        for (let i = 1; i < 13; i++) {
+            monthStore[i - 1] = Array(new Date(yearNo, i, 0).getDate());
         }
         eventDateMap.set(yearNo, monthStore);
     },

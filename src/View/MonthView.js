@@ -22,8 +22,8 @@ export default class MonthView extends StateView {
             header.textContent = i + 1;
 
             const cVStore = data[i]?.heap.map((entry) => {
-                const cv = new CalendarEventView(MonthView.viewStrategy); //box?
-                cv.render(entry);
+                const cv = new CalendarEventView(); //box?
+                cv.render(entry, MonthView.viewStrategy);
                 cv.component.classList.add('box');
                 return cv.component;
             });

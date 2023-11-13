@@ -4,6 +4,7 @@
 
 .stg {
     padding: 0.5lh;
+    background: var(--col);
     border-radius: 0.5lh;
 }
 
@@ -12,7 +13,6 @@
 }
 
 .day.view .stg {    
-    background: orange;
     display: grid;
     justify-content: end;
 }
@@ -24,12 +24,20 @@
 }
 
 .week.view .stg {
-    background: red;
+    background: var(--col);
 }
 
 .month.view .stg {
     max-width: 1lh;
     height: 1lh;
     border-radius: 0.25lh;
-    background: rgb(223, 186, 86);
+}
+
+.circle {
+    aspect-ratio: 1;
+    width: 0.5lh;
+    height: 0.5lh;
+    padding: 0;
+    border-radius: 50%;
+    margin-right: -0.25lh;
 }

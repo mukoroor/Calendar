@@ -20,8 +20,8 @@ export default class WeekView extends StateView {
 
             header.textContent = `${start[i][1]} - ${start[i][2]}`;
             const cVStore = data[i]?.heap.map((entry) => {
-                const cv = new CalendarEventView(WeekView.viewStrategy);
-                cv.render(entry);
+                const cv = new CalendarEventView();
+                cv.render(entry, WeekView.viewStrategy);
                 return cv.component;
             });
             

@@ -3,11 +3,9 @@ import {calendarEventController as CEC} from "../Controller.js";
 
 export default class CalendarEventView extends View {
     #eventHash
-    #renderingViewStrategy
 
-    constructor(renderingViewStrategy) {
+    constructor() {
         super();
-        this.#renderingViewStrategy = renderingViewStrategy;
     }
 
     select() {
@@ -16,8 +14,8 @@ export default class CalendarEventView extends View {
         //custome event 
     }
 
-    render(data) {
-        this.component = this.#renderingViewStrategy.render(data);
+    render(data, viewRenderingStrategy) {
+        this.component = viewRenderingStrategy.render(data);
         this.#eventHash = data.hash;
     }
 

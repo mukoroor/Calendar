@@ -14,8 +14,8 @@ export default class DayView extends StateView {
         let out = [];
         this.component = document.createElement('main');
         for (const entry of data.heap) {
-            const cv = new CalendarEventView(DayView.viewStrategy);
-            cv.render(entry);
+            const cv = new CalendarEventView();
+            cv.render(entry, DayView.viewStrategy);
             out.push(cv.component);
         }
         this.component.classList.add('day');

@@ -5,11 +5,13 @@ export default class CalendarEvent {
     #date
     #time
     #name
+    #color
 
-    constructor({date, time, name}) {
+    constructor({date, time, name, color}) {
         this.#date = date;
         this.#time = time;
         this.#name = name;
+        this.#color = color;
         this.#id = CalendarEventStore.addEvent(this);
     }
 
@@ -27,6 +29,10 @@ export default class CalendarEvent {
 
     get name() {
         return this.#name;
+    }
+
+    get color() {
+        return this.#color;
     }
 
     static compare(a, b) {

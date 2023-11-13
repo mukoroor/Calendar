@@ -13,7 +13,7 @@ export default class YearState extends State {
 
     previous() {
         const past = this.focusedDate;
-        past.setFullYear(past.getFullYear() + 1);
+        past.setFullYear(past.getFullYear() - 1);
     }
 
     generateData() {
