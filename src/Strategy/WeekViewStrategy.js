@@ -5,7 +5,7 @@ export default class WeekViewStrategy extends ViewStrategy {
         super();
     }
 
-    render(data) {
+    renderEvent(data) {
         const div = document.createElement('div');
         div.style.setProperty('--col', data.color);
         const span = document.createElement('span');

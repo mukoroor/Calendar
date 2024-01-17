@@ -5,7 +5,7 @@ export default class MonthViewStrategy extends ViewStrategy {
         super();
     }
 
-    render(data) {
+    renderEvent(data) {
         // const div = document.createElement('div');
         const span = document.createElement('span');
         span.style.setProperty('--col', data.color);

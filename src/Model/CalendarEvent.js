@@ -3,24 +3,25 @@ import {CalendarEventStore} from "./CalendarEventStore.js";
 export default class CalendarEvent {
     #id
     #date
-    #time
+    #startTime
+    #endTime
     #name
     #color
 
-    constructor({date, time, name, color}) {
-        this.#date = date;
-        this.#time = time;
+    constructor({ startTime, endTime, name, color}) {
+        this.#startTime = startTime;
+        this.#endTime = endTime;
         this.#name = name;
         this.#color = color;
         this.#id = CalendarEventStore.addEvent(this);
     }
 
-    get date() {
-        return this.#date;
+    get startTime() {
+        return this.#startTime;
     }
 
-    get time() {
-        return this.#time;
+    get endTime() {
+        return this.#endTime;
     }
 
     get hash() {
@@ -36,6 +37,10 @@ export default class CalendarEvent {
     }
 
     static compare(a, b) {
-        return a.name < b.name;
+        return (
+            a.startTime - b.startTime ||
+            a.endTime - b.endTime ||
+            a.name.localeCompare(b.name)
+        );
     }
 }

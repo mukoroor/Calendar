@@ -5,7 +5,7 @@ export default class DayViewStrategy extends ViewStrategy {
         super();
     }
 
-    render(data) {
+    renderEvent(data) {
         const div = document.createElement('div');
         const span = document.createElement('span');
         const p = document.createElement('p');
@@ -17,5 +17,4 @@ export default class DayViewStrategy extends ViewStrategy {
         p.textContent = data.name;
         return div;
     }
-
 }

@@ -15,9 +15,7 @@ export default class CalendarEventView extends View {
     }
 
     render(data, viewRenderingStrategy) {
-        this.component = viewRenderingStrategy.render(data);
+        this.component = viewRenderingStrategy.renderEvent(data);
         this.#eventHash = data.hash;
     }
-
-    // singular
 }

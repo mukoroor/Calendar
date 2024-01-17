@@ -1,0 +1,51 @@
+.view header {
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(2, min-content);
+    gap: 0.5lh;
+}
+
+.view header > div:first-child {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, min-content);
+    justify-content: space-between;
+}
+
+.view header > div div {
+    display: flex;
+    gap: 1ch;
+}
+
+.view header span {
+    text-align: center;
+    font-size: 1.5em;
+    padding: 0.125lh 0.25lh;
+    border-radius: 0.125lh;
+    /* backdrop-filter: saturate(180%) blur(5px); */
+    background-color: rgb(49, 49, 49);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.view header span:focus {
+    background: inherit;
+    user-select: none;
+    backdrop-filter: brightness(60%);
+}
+
+.view header .selected {
+    background-color: rgb(56, 56, 75);
+}
+
+.month-name {
+    width: 9ch;
+}
+
+.date-no {
+    width: 2ch;
+}
+
+.year-no {
+    width: 4ch;
+}
+

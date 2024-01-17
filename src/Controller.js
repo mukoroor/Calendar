@@ -1,10 +1,12 @@
-import {CalendarEventStore} from "./CalendarEventStore.js";
 import View from "./View/View.js";
 import YearState from "./State/YearState.js";
 import MonthState from "./State/MonthState.js";
 import WeekState from "./State/WeekState.js";
 import DayState from "./State/DayState.js";
+import DateNavigatorView from "./View/DateNavigatorView.js";
 import stateManager from "./Manager.js";
+import DayNavigator from "./Model/DateNavigator.js";
+import {CalendarEventStore} from "./Model/CalendarEventStore.js";
 
 export const calendarEventController = {
     selected: new Set(),
@@ -17,33 +19,30 @@ export const calendarEventController = {
     }
 }
 
-export const stateIteratorController = {
-    manager: stateManager,
-    view: new View(),
+export const dayNavigatorController = {
+    model: DayNavigator,
+    view: new DateNavigatorView(),
 
     next() {
-        this.manager.state.next();
-        this.manager.notify();
+        this.model.next();
+        stateManager.notify();
     },
 
     previous() {
-        this.manager.state.previous();
-        this.manager.notify();
+        this.model.previous();
+        stateManager.notify();
+    },
+
+    updateModel(newDate) {
+        this.model.setCurrentDay(newDate);
+        stateManager.notify();
+    },
+
+    updateView() {
+        this.view.render(this.model.currentDay);
     }
+
 }
-
-stateIteratorController.view.component = document.createElement('div');
-let options = ['previous', 'next'].map((e, i) => {
-    const button = document.createElement('button');
-    button.textContent = e;
-    button.onclick = () => {
-        if (e === 'next') stateIteratorController.next();
-        else stateIteratorController.previous();
-    }
-    return button;
-})
-stateIteratorController.view.component.replaceChildren(...options);
-
 
 export const stateController = {
     manager: stateManager,
@@ -76,8 +75,8 @@ export const stateController = {
     }
 }
 
-stateController.view.component = document.createElement('div');
-options = Array.from(stateController.manager.observers).map((e, i) => {
+stateController.view.component = document.createElement('nav');
+let options = Array.from(stateController.manager.observers).map((e, i) => {
     const button = document.createElement('button');
     button.textContent = e[1].constructor.name.replace('View','');
     button.onclick = () => stateController.updateState(i);

@@ -1,47 +1,136 @@
 .view {
     display: grid;
+    grid-template-rows: min-content repeat(4, 1fr);
     background: rgb(61, 60, 60);
     gap: max(10px, 0.5lh);
-    border-radius: 1.25lh;
-    padding: 0.5lh;
+    border-radius: 0.75lh;
+    padding: 0.75lh;
     box-sizing: border-box;
     height: 100%;
 }
 
-.year {
-    grid-auto-flow: row;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
+.view > section {
+    display: grid;
+    gap: max(10px, 0.5lh);
+    grid-row: 2 / -1;
 }
 
-.year h5, .year h6 {
+/*
+    Year format: as of now,
+    <section> => stores all months
+        <div class="parent today"> => month
+            <h5>January</h5> => month title
+            <section> => section to store all days
+                <div> => day container
+                    <h6>1</h6> => day title
+                    <section> => storing events
+                        <div class="stg circle" style="--col: #6549CA;"></div> => example element/event
+                        ...
+                    </section> 
+                </div>
+                ...
+            </section>
+        </div>
+        ...
+    </section>
+*/
+
+.year h4, .year h5 {
     margin: 0;
 }
 
-.year > div {
+.year h4 {
+    font-size: 1.25em;
+    font-weight: 300;
+    letter-spacing: 0.1ch;
 }
 
-.year > div > section {
-    display: grid;
+.year h5 {
+    text-align: center;
+}
+
+.year > section {
     grid-auto-flow: row;
-    grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    border-radius: 0.5lh;
+    /* border: 1px solid rgba(255, 255, 255, 0.05); */
 }
 
-.year > div > section section {
+.year > section > div {
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    background: rgb(71, 73, 73);
+    gap: 0.5lh 0;
+    padding: 1ch;
+    border-radius: 0.5lh;
+    background: inherit;
+    border: 1px solid rgba(85, 85, 85, 1);
+}
+
+.year > section > div:not(.parent-today):hover {
+    backdrop-filter: brightness(90%);
+}
+
+.year > section > div:nth-child(4n + 1) {
+    border-left: 0;
+}
+
+.year > section > div:nth-child(4n) {
+    border-right: 0;
+}
+
+.year > section > div:nth-child(-n + 4) {
+    border-top: 0;
+}
+
+.year > section > div:nth-child(n + 9) {
+    border-bottom: 0;
+}
+
+.year > section > div > section {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+.year > section > div > section > div {
+    display: grid;
+    place-content: center;
+    border-radius: 0.25lh;
+}
+
+.year > section > div > section > div.today {
+    /* box-shadow: inset 0 0 5px rgb(77, 77, 77); */
+    /* outline: 1px solid rgb(90, 90, 90); */
+}
+
+.year > section > div > section section {
     display: flex;
     flex-wrap: nowrap;
+    /* width: 100%; */
     overflow: hidden;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
-.month {
+.year > section > div > section section > *:nth-child(n + 10) {
+    display: none;
+}
+
+.year > section > div > section section > *:is(:nth-last-child(1), :nth-child(9)) {
+    margin-right: 0;
+}
+
+.month > section {
     grid-auto-flow: row;
-    grid-template-columns: repeat(7, 10.5lh);
-    grid-auto-rows: 1fr;
+    width: fit-content;
+    aspect-ratio: 7 / 5;
+    gap: 0;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 1fr);
 }
 
-.month h4 {
+.month > section h4 {
     margin: 0;
     font-weight: 200;
     border-top-left-radius: inherit;
@@ -50,7 +139,7 @@
     backdrop-filter: brightness(50%);
 }
 
-.month section {
+.month > section section {
     display: flex;
     align-content: flex-start;
     gap: 0.25lh;
@@ -60,21 +149,109 @@
     flex-wrap: wrap;
 }
 
-.month div {
+.month > section > div:nth-child(7n + 1) {
+    margin-left: 0;
+}
+
+.month > section > div:nth-child(7n) {
+    margin-right: 0;
+}
+
+.month > section > div:nth-child(-n + 7) {
+    margin-top: 0;
+}
+
+.month > section > div:nth-child(n + 29) {
+    margin-bottom: 0;
+}
+
+/* .month > section > div:nth-child(n + 9):nth-child(-n + 27):not(:nth-child(7n), :nth-child(7n + 1)) {
+    background: red;
+} */
+
+.month > section > div {
     background: rgb(71, 73, 73);
     display: grid;
     gap: 0.5lh;
+    margin: max(5px, 0.25lh);
     grid-template-rows: min-content 1fr;
-    aspect-ratio: 1 / 1;
     border-radius: 0.75lh;
 }
 
-.month div > * {
+.month > section > div > * {
     padding-left: 0.5lh;
     padding-right: 0.5lh;
 }
 
-.week {
+.week > section {
     grid-auto-flow: column;
-    grid-auto-columns: 1fr;
+    /* width: 100%; */
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: min-content repeat(7, 1fr);
+    gap: 4px;
+}
+
+.week > section > div {
+    display: grid;
+    grid-row: 1 / -1;
+    padding-bottom: 1lh;
+    grid-template-rows: min-content 1fr 1fr;
+}
+
+.week > section > div > section {
+    height: 100%;
+    width: 100%;
+    gap: 0 2px;
+    background: repeating-linear-gradient(to bottom, transparent 0 calc(100%/24 - 1px), rgb(255, 119, 0, 0.2) calc(100%/24 - 1px) calc(100%/24)),
+    repeating-linear-gradient(to bottom, transparent 0 calc(100%/48 - 1px), rgba(0, 0, 0, 0.2) calc(100%/48 - 1px) calc(100%/48));
+}
+
+.week > section > div > h4 {
+    display: grid;
+    grid-auto-flow: column;
+    padding: 1lh 2ch;
+    margin: 0;
+    place-items: center;
+    justify-content: space-between;
+    background: inherit;
+    backdrop-filter: brightness(60%);
+}
+
+.week > section > div > h4 > span:first-child {
+    color: rgb(21, 116, 216);
+    font-weight: 500;
+    font-size: 1.25em;
+}
+
+/*need to fix week times alignment */
+
+.week .grid-time {
+    display: grid;
+    grid-row: 2/ -1;
+    grid-template-rows: repeat(1440, 1fr);
+}
+
+.week > section > .grid-time-bar > h4 {
+    padding: 1lh 1ch;
+    backdrop-filter: brightness(20%);
+    gap: 0 1ch;
+}
+
+.week .grid-time-bar {
+    grid-template-rows: repeat(24, 1fr);
+    justify-items: center;
+    backdrop-filter: brightness(80%);
+}
+
+.week .grid-time-bar > span {
+    font-size: 0.95em;
+    font-weight: 100;
+}
+
+.view section > .today {
+    background: rgba(0, 128, 0, 0.6);
+}
+
+.view section > .parent-today {
+    backdrop-filter: brightness(60%);
 }

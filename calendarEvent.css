@@ -5,7 +5,6 @@
 .stg {
     padding: 0.5lh;
     background: var(--col);
-    border-radius: 0.5lh;
 }
 
 .day.view .stg > * {
@@ -24,17 +23,28 @@
 }
 
 .week.view .stg {
-    background: var(--col);
+    display: grid;
+    place-items: center;
+    border-radius: 0.15lh;
+    padding: 0;
+}
+
+.week.view .stg span {
+    max-width: 75%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .month.view .stg {
-    max-width: 1lh;
-    height: 1lh;
-    border-radius: 0.25lh;
+    aspect-ratio: 2 / 5;
+    padding: 0.25lh;
+    height: 20%;
+    border-radius: 0.175lh;
 }
 
 .circle {
     aspect-ratio: 1;
+    /* flex-basis: 10%; */
     width: 0.5lh;
     height: 0.5lh;
     padding: 0;

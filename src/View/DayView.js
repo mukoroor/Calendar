@@ -1,8 +1,15 @@
+import { dayNavigatorController as DNC, stateController as SC} from "../Controller.js";
 import DayViewStrategy from "../Strategy/DayViewStrategy.js";
 import CalendarEventView from "./CalendarEventView.js";
-import StateView from "./StateView.js";
+import TimeRangeView from "./TimeRangeView.js";
 
-export default class DayView extends StateView {
+
+const EMPTY_DAY = document.createElement('div');
+EMPTY_DAY.textContent = 'NO EVENTS'
+EMPTY_DAY.classList.add('empty');
+
+
+export default class DayView extends TimeRangeView {
     static viewStrategy = new DayViewStrategy();
 
     constructor() {
@@ -10,17 +17,30 @@ export default class DayView extends StateView {
     }
 
     render(data, start) {
-        if (!data) return;
         let out = [];
         this.component = document.createElement('main');
-        for (const entry of data.heap) {
-            const cv = new CalendarEventView();
-            cv.render(entry, DayView.viewStrategy);
-            out.push(cv.component);
+
+        if (data) {
+            for (const entry of data.inOrder()) {
+                const cv = new CalendarEventView();
+                cv.render(entry, DayView.viewStrategy);
+                out.push(cv.component);
+            }
+        } else {
+            out.push(EMPTY_DAY);
         }
+
         this.component.classList.add('day');
-        this.component.replaceChildren(...out);
+        DNC.updateView();
+        const controlPanel = document.createElement('header');
+        controlPanel.append(DNC.view.component,  SC.view.component);
+        
+        const renderData = document.createElement('section');
+        renderData.append(...out);
+        
         super.render();
-        document.querySelector('body').replaceChild(this.component, document.querySelector('body').lastElementChild);
+        
+        this.component.append(controlPanel, renderData);
+        document.querySelector('.view')?.replaceWith(this.component);
     }
 }

@@ -3,6 +3,7 @@ import YearView from "./View/YearView.js";
 import MonthView from "./View/MonthView.js";
 import WeekView from "./View/WeekView.js";
 import DayView from "./View/DayView.js";
+import { dayNavigatorController as DNC } from "./Controller.js";
 
 const stateManager = {
     state: new DayState(new Date()),
@@ -14,7 +15,7 @@ const stateManager = {
     },
 
     notify() {
-        const vals = this.state.generateData();
+        const vals = this.state.generateData(DNC.model.currentDay);
         this.observers.get(this.state.constructor.name.replace('State', '')).render(vals.data, vals.start);
     }
 }

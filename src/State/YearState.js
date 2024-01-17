@@ -1,23 +1,25 @@
-import State from "./State.js";
-import { CalendarEventStore } from "../CalendarEventStore.js";
+import TimeRangeState from "./TimeRangeState.js";
+import { CalendarEventStore } from "../Model/CalendarEventStore.js";
 
-export default class YearState extends State {
-    constructor(focusedDate) {
-        super(focusedDate);
+export default class YearState extends TimeRangeState {
+    constructor() {
+        super();
     }
 
-    next() {
-        const past = this.focusedDate;
-        past.setFullYear(past.getFullYear() + 1);
+    next(date) {
+        const nextDate = new Date(date);
+        nextDate.setFullYear(nextDate.getFullYear() + 1);
+        return nextDate;
     }
 
-    previous() {
-        const past = this.focusedDate;
-        past.setFullYear(past.getFullYear() - 1);
+    previous(date) {
+        const prevDate = new Date(date);
+        prevDate.setFullYear(prevDate.getFullYear() - 1);
+        return prevDate;
     }
 
-    generateData() {
-        const params = this.focusedDate.toLocaleDateString('zh-CN').split('/');
+    generateData(date) {
+        const params = date.toLocaleDateString('zh-CN').split('/');
         return {data: CalendarEventStore.getYear(...params), start: params};
     }
 }
