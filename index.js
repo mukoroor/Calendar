@@ -29,7 +29,7 @@ function getRandomHexColor() {
 let year = 2000;
 for (year; year <= 2030; year++) {
     for (let month = 1; month <= 12; month++) {
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 500; i++) {
             const startTime = setRandomTime(getRandomDate(year, month));
             let endTime = setRandomTime(new Date(startTime));
             if (endTime <= startTime) continue;

@@ -1,12 +1,12 @@
 import CalendarEvent from "./CalendarEvent.js";
 import PriorityQueue from "./PriorityQueue.js";
+import { MonthLengths } from "./DateMappings.js";
 
 // Maps => Year => Array of Month which stores Array of Days which stores Array of Events
 const eventDateMap = new Map();
 
-const monthLengths = Array.from({length: 12}, (_, i) => new Date(0, i + 1, 0).getDate());
 const EMPTY_YEAR = Array.from({length: 12}, (e, i) => {
-    return Array(monthLengths[i]);
+    return Array(MonthLengths[i]);
 })
 
 function isLeapYear(year) {
@@ -41,10 +41,10 @@ class dayHeapMap extends Map {
 
 export const CalendarEventStore = {
     getYear(yearNo) {
-        if (isLeapYear(yearNo)) monthLengths[1] = 29;
-        else monthLengths[1] = 28;
+        if (isLeapYear(yearNo)) MonthLengths[1] = 29;
+        else MonthLengths[1] = 28;
         if (!eventDateMap.has(yearNo)) {
-            EMPTY_YEAR[1] = Array(monthLengths[1]);
+            EMPTY_YEAR[1] = Array(MonthLengths[1]);
             return EMPTY_YEAR;
         }
         return eventDateMap.get(yearNo);
@@ -52,10 +52,10 @@ export const CalendarEventStore = {
 
     addYear(yearNo) {
         const monthStore = Array(12);
-        if (isLeapYear(yearNo)) monthLengths[1] = 29;
-        else monthLengths[1] = 28;
+        if (isLeapYear(yearNo)) MonthLengths[1] = 29;
+        else MonthLengths[1] = 28;
         for (let i = 0; i < monthStore.length; i++) {
-            monthStore[i] = Array(new Date(yearNo, i + 1, 0).getDate());
+            monthStore[i] = Array(MonthLengths[i]);
         }
         eventDateMap.set(yearNo, monthStore);
     },

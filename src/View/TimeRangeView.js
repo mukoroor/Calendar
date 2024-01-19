@@ -1,5 +1,6 @@
 import View from "./View.js";
 import { dayNavigatorController as DNC, stateController as SC} from "../Controller.js";
+import stateManager from "../Manager.js";
 
 export default class TimeRangeView extends View {
     static viewStrategy;
@@ -46,6 +47,6 @@ export default class TimeRangeView extends View {
     static changeDate(year, month, date) {
         const dateObj = new Date(year, month, date);
         DNC.model.setCurrentDay(dateObj);
-        DNC.updateView();
+        stateManager.notify();
     }
 }

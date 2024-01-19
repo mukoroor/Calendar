@@ -124,10 +124,10 @@
 .month > section {
     grid-auto-flow: row;
     width: fit-content;
-    aspect-ratio: 7 / 5;
+    aspect-ratio: 7 / 6.25;
     gap: 0;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: 0.25fr repeat(6, 1fr);
 }
 
 .month > section h4 {
@@ -149,7 +149,15 @@
     flex-wrap: wrap;
 }
 
-.month > section > div:nth-child(7n + 1) {
+.month > section > div.before {
+    background: color-mix(in srgb, var(--color-def) 70%, red);
+}
+
+.month > section > div.after {
+    background: color-mix(in srgb, var(--color-def) 70%, purple);
+}
+
+/* .month > section > div:nth-child(7n + 1) {
     margin-left: 0;
 }
 
@@ -163,19 +171,45 @@
 
 .month > section > div:nth-child(n + 29) {
     margin-bottom: 0;
-}
+} */
 
 /* .month > section > div:nth-child(n + 9):nth-child(-n + 27):not(:nth-child(7n), :nth-child(7n + 1)) {
     background: red;
 } */
 
 .month > section > div {
-    background: rgb(71, 73, 73);
+    --color-def: rgb(71, 73, 73);
+    background: var(--color-def);
     display: grid;
     gap: 0.5lh;
     margin: max(5px, 0.25lh);
     grid-template-rows: min-content 1fr;
-    border-radius: 0.75lh;
+    border-radius: 0.5lh;
+}
+
+.month > section > .grid-days-bar {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 0;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 1fr;
+    grid-column: 1 / -1;
+    overflow: hidden;
+}
+
+.month > section > .grid-days-bar span {
+    backdrop-filter: brightness(40%);
+    font-weight: 400;
+    font-size: 1.05em;
+    box-sizing: border-box;
+    padding-left: 1ch;
+    width: 100%;
+    display: grid;
+    align-content: center;    
+}
+
+.month > section > .grid-days-bar span:nth-child(n + 2) {
+    border-left: 1px solid rgb(0, 105, 185);
 }
 
 .month > section > div > * {
@@ -198,14 +232,6 @@
     grid-template-rows: min-content 1fr 1fr;
 }
 
-.week > section > div > section {
-    height: 100%;
-    width: 100%;
-    gap: 0 2px;
-    background: repeating-linear-gradient(to bottom, transparent 0 calc(100%/24 - 1px), rgb(255, 119, 0, 0.2) calc(100%/24 - 1px) calc(100%/24)),
-    repeating-linear-gradient(to bottom, transparent 0 calc(100%/48 - 1px), rgba(0, 0, 0, 0.2) calc(100%/48 - 1px) calc(100%/48));
-}
-
 .week > section > div > h4 {
     display: grid;
     grid-auto-flow: column;
@@ -223,12 +249,24 @@
     font-size: 1.25em;
 }
 
-/*need to fix week times alignment */
-
 .week .grid-time {
     display: grid;
     grid-row: 2/ -1;
     grid-template-rows: repeat(1440, 1fr);
+    gap: 0 2px;
+    background: repeating-linear-gradient(to bottom, transparent 0 calc(100%/24 - 1px), rgb(255, 119, 0, 0.2) calc(100%/24 - 1px) calc(100%/24)),
+    repeating-linear-gradient(to bottom, transparent 0 calc(100%/48 - 1px), rgba(0, 0, 0, 0.2) calc(100%/48 - 1px) calc(100%/48));
+}
+
+.week .grid-seq {
+    display: flex;
+    flex-direction: column;
+    grid-row: 2/ -1;
+    gap: 2px;
+}
+
+.week .grid-seq > * {
+    flex-grow: 1;
 }
 
 .week > section > .grid-time-bar > h4 {
@@ -246,6 +284,8 @@
 .week .grid-time-bar > span {
     font-size: 0.95em;
     font-weight: 100;
+    height: min-content;
+    translate: 0 -50%;
 }
 
 .view section > .today {

@@ -17,7 +17,7 @@ export default class WeekViewStrategy extends ViewStrategy {
         return div;
     }
 
-    renderTimeMarker() {
+    renderTimeRangeMarker() {
         const timeMarker = document.createElement('div');
         const timeMarkerHeader = document.createElement('h4');
         const span1 = document.createElement('span');

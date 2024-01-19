@@ -1,3 +1,4 @@
+import settings from "../Settings.js";
 import PriorityQueue from "../Model/PriorityQueue.js";
 
 export default class TimeRangeState {
@@ -17,10 +18,10 @@ export default class TimeRangeState {
         throw new Error("must implement");
     }
 
-    eventsToTimeline(events, mode) {
-        const timelineArr = [];
+    eventsToTimeline(events) {
+        let timelineArr = [];
         
-        if (mode == 'overlap') {
+        if (settings.mode == 'overlap') {
             timelineArr = events.inOrder();
         } else {
             // adapted from leetcode meeting rooms 3 understanding

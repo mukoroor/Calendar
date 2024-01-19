@@ -1,7 +1,9 @@
+import settings from "../Settings.js";
 import TimeRangeView from "./TimeRangeView.js";
 import { DaysMed } from "../Model/DateMappings.js";
 import CalendarEventView from "./CalendarEventView.js";
 import WeekViewStrategy from "../Strategy/WeekViewStrategy.js";
+import { dayNavigatorController as DNC } from "../Controller.js";
 
 export default class WeekView extends TimeRangeView {
     static viewStrategy = new WeekViewStrategy();
@@ -12,11 +14,13 @@ export default class WeekView extends TimeRangeView {
 
     renderChildren(data, start) {
         const childrenElements = [];
-        const isOverlap = data.mode == 'overlap';
-        delete data.mode;
+        const isOverlap = settings.mode == 'overlap';
+
+        let todayIndex = DNC.model.currentDay.getDay();
 
         if (!isOverlap) {
-            childrenElements.push(WeekView.viewStrategy.renderTimeMarker());
+            childrenElements.push(WeekView.viewStrategy.renderTimeRangeMarker());
+            todayIndex++;
         }
 
         for (let i = 0; i < data.length; i++) {
@@ -27,6 +31,7 @@ export default class WeekView extends TimeRangeView {
             section.classList.add(isOverlap ? 'grid-seq' : 'grid-time');
             
             dayComponent.addEventListener('click', e => this.onDayClicked(e.currentTarget, start[i][0], start[i][1], start[i][2]));
+            dayComponent.style.gridColumn = i + 2;
 
             const dayofWeek = document.createElement('span');
             const dayNo = document.createElement('span');
@@ -58,7 +63,7 @@ export default class WeekView extends TimeRangeView {
             childrenElements.push(dayComponent);
         }
 
-        childrenElements[start.todayIndex + 1].classList.add('today');
+        childrenElements[todayIndex].classList.add('today');
 
         return childrenElements;
     }

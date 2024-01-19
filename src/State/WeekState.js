@@ -20,11 +20,10 @@ export default class WeekState extends TimeRangeState {
         return prevDate;
     }
 
-    generateData(date, mode = 'non') {
+    generateData(date) {
         const week = [];
 
         const start  = [];
-        start.todayIndex = date.getDay();
         
         const copy = new Date(date);
         copy.setDate(copy.getDate() - date.getDay());
@@ -36,8 +35,7 @@ export default class WeekState extends TimeRangeState {
             let timeline = [];
 
             if (events) {
-                events.mode = mode;
-                timeline = this.eventsToTimeline(events, mode);
+                timeline = this.eventsToTimeline(events);
             }
 
             week.push(timeline);

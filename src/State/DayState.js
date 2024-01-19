@@ -19,8 +19,8 @@ export default class DayState extends TimeRangeState {
         return prevDate;
     }
 
-    generateData(date, mode = 'list') {
+    generateData(date) {
         const params = TimeRangeState.dateToYMD(date);
-        return {data: CalendarEventStore.getDay(...params, mode), start: params};
+        return {data: CalendarEventStore.getDay(...params), start: params};
     }
 }

@@ -1,3 +1,4 @@
+import { DaysShort } from "../Model/DateMappings.js";
 import ViewStrategy from "./ViewStrategy.js";
 
 export default class MonthViewStrategy extends ViewStrategy {
@@ -14,6 +15,20 @@ export default class MonthViewStrategy extends ViewStrategy {
         // div.addEventListener("click", this.select.bind(this));
         // span.textContent = data.name;
         return span;
+    }
+
+    renderTimeRangeMarker() {
+        const timeMarker = document.createElement('div');
+
+        timeMarker.classList.add('grid-days-bar');
+
+        DaysShort.forEach(e => {
+            const span = document.createElement('span');
+            span.textContent = e;
+            timeMarker.append(span);
+        })
+
+        return timeMarker;
     }
 
 }

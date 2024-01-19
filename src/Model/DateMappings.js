@@ -15,4 +15,7 @@ const DaysFull = [
     "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 ];
 
-export {MonthNames, DaysShort, DaysMed, DaysFull};
+const MonthLengths = Array.from({length: 12}, (_, i) => new Date(0, i + 1, 0).getDate());
+
+
+export {MonthNames, DaysShort, DaysMed, DaysFull, MonthLengths};
