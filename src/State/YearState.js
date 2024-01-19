@@ -19,7 +19,7 @@ export default class YearState extends TimeRangeState {
     }
 
     generateData(date) {
-        const params = date.toLocaleDateString('zh-CN').split('/');
+        const params = TimeRangeState.dateToYMD(date);
         return {data: CalendarEventStore.getYear(...params), start: params};
     }
 }

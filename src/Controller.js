@@ -41,11 +41,10 @@ export const dayNavigatorController = {
     updateView() {
         this.view.render(this.model.currentDay);
     }
-
 }
 
 export const stateController = {
-    manager: stateManager,
+    manager: null,
     view: new View(),
 
     updateState(id) {
@@ -72,14 +71,24 @@ export const stateController = {
         } else {
             throw new Error("Invalid id");
         }
+    },
+
+    updateView() {
+        stateController.view.component = document.createElement('nav');
+        let options = Array.from(stateController.manager.observers).map((e, i) => {
+            const button = document.createElement('button');
+            button.textContent = e[1].constructor.name.replace('View','');
+            button.onclick = () => stateController.updateState(i);
+            return button;
+        })
+        stateController.view.component.replaceChildren(...options);
     }
 }
 
-stateController.view.component = document.createElement('nav');
-let options = Array.from(stateController.manager.observers).map((e, i) => {
-    const button = document.createElement('button');
-    button.textContent = e[1].constructor.name.replace('View','');
-    button.onclick = () => stateController.updateState(i);
-    return button;
-})
-stateController.view.component.replaceChildren(...options);
+export function init() {
+    stateController.manager = stateManager;
+    stateController.updateView();
+    dayNavigatorController.updateView();
+}
+
+

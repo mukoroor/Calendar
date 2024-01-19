@@ -51,6 +51,9 @@ export default class TimeRangeState {
         return timelineArr;
     }
 
+    static dateToYMD(date) {
+        return date.toLocaleDateString('zh-CN').split('/').map((e, i) => i == 1 ? +e - 1: +e); 
+    }
 
     // from https://stackoverflow.com/questions/67341661/how-to-get-only-the-timezone-name-in-javascript with some slight channges
     static getTimeZoneName(type, locales = []) {

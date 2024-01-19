@@ -1,7 +1,7 @@
 import CalendarEvent from "./src/Model/CalendarEvent.js";
 // have to fix setup issues.
-import { stateController, dayNavigatorController } from "./src/Controller.js";
 import stateManager from "./src/Manager.js";
+import { init as controllerInit } from "./src/Controller.js";
 
 function getRandomDate(year, month) {
     const daysInMonth = new Date(year, month, 0).getDate();
@@ -41,11 +41,16 @@ for (year; year <= 2030; year++) {
     }
 }
 
-
+function init() {
+    stateManager.init();
+    controllerInit();
+}
 
 function load() {
     stateManager.notify();
     document.removeEventListener("DOMContentLoaded", load);
 }
 
+
+init();
 document.addEventListener("DOMContentLoaded", load);

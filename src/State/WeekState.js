@@ -22,12 +22,15 @@ export default class WeekState extends TimeRangeState {
 
     generateData(date, mode = 'non') {
         const week = [];
-        let copy = new Date(date);
-        copy.setDate(copy.getDate() - date.getDay());
+
         const start  = [];
         start.todayIndex = date.getDay();
+        
+        const copy = new Date(date);
+        copy.setDate(copy.getDate() - date.getDay());
+        
         for (let i = 0; i < 7; i++) {
-            const params = copy.toLocaleDateString('zh-CN').split('/');
+            const params = TimeRangeState.dateToYMD(copy);
             
             const events = CalendarEventStore.getDay(...params)?.queue;
             let timeline = [];
@@ -41,6 +44,7 @@ export default class WeekState extends TimeRangeState {
             start.push(params);
             copy.setDate(copy.getDate() + 1);
         }
+
         return {data: week, start};
     }
 }

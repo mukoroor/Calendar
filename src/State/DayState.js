@@ -20,7 +20,7 @@ export default class DayState extends TimeRangeState {
     }
 
     generateData(date, mode = 'list') {
-        const params = date.toLocaleDateString('zh-CN').split('/');
+        const params = TimeRangeState.dateToYMD(date);
         return {data: CalendarEventStore.getDay(...params, mode), start: params};
     }
 }

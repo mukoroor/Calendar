@@ -41,51 +41,52 @@ class dayHeapMap extends Map {
 
 export const CalendarEventStore = {
     getYear(yearNo) {
-        if (isLeapYear(+yearNo)) monthLengths[1] = 29;
+        if (isLeapYear(yearNo)) monthLengths[1] = 29;
         else monthLengths[1] = 28;
-        if (!eventDateMap.has(+yearNo)) {
+        if (!eventDateMap.has(yearNo)) {
             EMPTY_YEAR[1] = Array(monthLengths[1]);
             return EMPTY_YEAR;
         }
-        return eventDateMap.get(+yearNo);
+        return eventDateMap.get(yearNo);
     },
 
     addYear(yearNo) {
         const monthStore = Array(12);
         if (isLeapYear(yearNo)) monthLengths[1] = 29;
         else monthLengths[1] = 28;
-        for (let i = 1; i < 13; i++) {
-            monthStore[i - 1] = Array(new Date(yearNo, i, 0).getDate());
+        for (let i = 0; i < monthStore.length; i++) {
+            monthStore[i] = Array(new Date(yearNo, i + 1, 0).getDate());
         }
         eventDateMap.set(yearNo, monthStore);
     },
 
     getMonth(yearNo, monthNo) {
-        const year = CalendarEventStore.getYear(+yearNo);
-        return year[+monthNo - 1];
+        const year = CalendarEventStore.getYear(yearNo);
+        return year[monthNo];
     },
 
     getDay(yearNo, monthNo, dayNo) {
-        const month = CalendarEventStore.getMonth(+yearNo, +monthNo);
-        return month[+dayNo - 1];
+        const month = CalendarEventStore.getMonth(yearNo, monthNo);
+        return month[dayNo - 1];
     },
 
     getEvent(yearNo, monthNo, dayNo, id) {
-        const day = CalendarEventStore.getDay(+yearNo, +monthNo, +dayNo);
-        if (!day || !day.has(+id)) return null;
-        return day.get(+id);
+        const day = CalendarEventStore.getDay(yearNo, monthNo, dayNo);
+        if (!day || !day.has(id)) return null;
+        return day.get(id);
     },
+
     addEvent(e) {
-        const [year, month, day] = [e.startTime.getFullYear(), e.startTime.getMonth() + 1, e.startTime.getDate()];
+        const [year, month, day] = [e.startTime.getFullYear(), e.startTime.getMonth(), e.startTime.getDate()];
         if (!eventDateMap.has(year)) CalendarEventStore.addYear(year);
 
-        const monthStore = eventDateMap.get(year)[+month - 1];
-        if (!monthStore[+day - 1]) monthStore[+day - 1] = new dayHeapMap();
+        const monthStore = eventDateMap.get(year)[month];
+        if (!monthStore[day - 1]) monthStore[day - 1] = new dayHeapMap();
 
-        const dayStore = monthStore[+day - 1];
+        const dayStore = monthStore[day - 1];
         const id = dayStore.id;
         dayStore.add(id, e);
-        return id
+        return id;
     }
 };
 console.log(eventDateMap);

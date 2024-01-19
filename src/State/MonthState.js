@@ -21,7 +21,7 @@ export default class MonthState extends TimeRangeState {
     }
 
     generateData(date) {
-        const params = date.toLocaleDateString('zh-CN').split('/');
+        const params = TimeRangeState.dateToYMD(date);
         return {data: CalendarEventStore.getMonth(...params), start: params};
     }
 }

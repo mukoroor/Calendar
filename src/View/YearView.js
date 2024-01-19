@@ -2,7 +2,7 @@ import YearViewStrategy from "../Strategy/YearViewStrategy.js";
 import CalendarEventView from "./CalendarEventView.js";
 import TimeRangeView from "./TimeRangeView.js";
 import { MonthNames } from "../Model/DateMappings.js";
-import { dayNavigatorController as DNC, stateController as SC} from "../Controller.js";
+import { dayNavigatorController as DNC} from "../Controller.js";
 
 
 export default class YearView extends TimeRangeView {
@@ -12,41 +12,33 @@ export default class YearView extends TimeRangeView {
         super();
     }
 
-    render(data, start) {
-        let out = [];
-        this.component = document.createElement('main');
+    renderChildren(data, start) {
+        const childrenElements = [];
 
         for (let k = 0; k < data.length; k++) {
-            let days = [];
             const month = document.createElement('div');
             const h5 = document.createElement('h4');
-            h5.textContent = MonthNames[k];
+            
             const dayGroup = document.createElement('section');
-
-            if (k === DNC.model.currentDay.getMonth()) {
-                month.classList.add('parent-today');
-            }
+            const days = [];
+            
+            h5.textContent = MonthNames[k];
 
             for (let i = 0; i < data[k].length; i++) {
-                const group = document.createElement('div');
-                const h6 = document.createElement('h5');
-                const day = i + 1;
-                h6.textContent = day;
+                const daySingular = document.createElement('div');
                 const section = document.createElement('section');
+                const h6 = document.createElement('h5');
 
-                if (k === DNC.model.currentDay.getMonth() && day === DNC.model.currentDay.getDate()) {
-                    group.classList.add('today');
-                }
+                const dayNo = i + 1;
+                h6.textContent = dayNo;
 
-                group.addEventListener('click', () => {
+                daySingular.addEventListener('click', e => {
                     this.component.querySelector('.parent-today').classList.remove('parent-today');
-                    this.component.querySelector('.today').classList.remove('today');
                     month.classList.add('parent-today');
-                    group.classList.add('today');
-                    this.changeDate(+start[0], k, day);
+                    this.onDayClicked(e.currentTarget, start[0], k, dayNo);
                 });
 
-                let events = [];
+                const events = [];
                 if (data[k][i]) {
                     for (const entry of data[k][i].inOrder()) {
                         const cv = new CalendarEventView();
@@ -55,26 +47,20 @@ export default class YearView extends TimeRangeView {
                         events.push(cv.component);
                     }
                 }
+
                 section.append(...events);
-                group.append(h6, section);
-                days.push(group);
+                daySingular.append(h6, section);
+                days.push(daySingular);
             }
+
             dayGroup.append(...days);
             month.append(h5, dayGroup);
-            out.push(month);
+            childrenElements.push(month);
         }
 
-        this.component.classList.add('year');
-        DNC.updateView();
-        const controlPanel = document.createElement('header');
-        controlPanel.append(DNC.view.component,  SC.view.component);
-        
-        const renderData = document.createElement('section');
-        renderData.append(...out);
-        
-        super.render();
+        childrenElements[DNC.model.currentDay.getMonth()].classList.add('parent-today');
+        childrenElements[DNC.model.currentDay.getMonth()].lastChild.children[DNC.model.currentDay.getDate() - 1].classList.add('today');
 
-        this.component.append(controlPanel, renderData);
-        document.querySelector('.view')?.replaceWith(this.component);
+        return childrenElements;
     }
 }
